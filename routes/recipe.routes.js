@@ -7,6 +7,7 @@ const storage = multer.memoryStorage(); // Store file data in memory as Buffer
 const upload = multer({ storage: storage });
 
 const Recipe = require("../models/Recipe.model");
+const User = require("../models/User.model");
 
 
         // Fetches ALL Recipes
@@ -23,6 +24,8 @@ router.get("/recipe/:_id", (req, res)=>{
         const {_id} = req.params;
         Recipe
         .findById(_id)
+        .populate("user")
+        .exec()
         .then((recipe) => res.json(recipe))
         .catch((error) => res.json(error));
 })
@@ -30,23 +33,18 @@ router.get("/recipe/:_id", (req, res)=>{
 
         // Creates a new Recipe
 router.post("/new", upload.array('images', 5), (req, res) => {
-        const { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, _id } = req.body;
-        const recipeData = { 
-                title, 
-                tags, 
-                time, 
-                servings, 
-                difficulty, 
-                ingredients, 
-                image,
-                language, 
-                cuisine, 
-                instructions 
-            };
-
+        let createdRecipe;
+        const { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, saveDate, user, _id } = req.body;
+        const recipeData = { title, tags, time, servings, difficulty, ingredients, image, language, cuisine, instructions, saveDate, user };
         Recipe
         .create(recipeData)
-        .then((newRecipe) => res.json(newRecipe))
+        .then((newRecipe) => {
+                createdRecipe = newRecipe;
+                return User.findByIdAndUpdate(_id, {$push: {createdRecipes: newRecipe._id}})
+        })  
+        .then(() => {
+                res.json(createdRecipe);
+        })
         .catch((error) => res.status(500).json({ error: "Failed to create recipe", details: error }));
 });
 

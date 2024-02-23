@@ -36,6 +36,13 @@ const recipeSchema = new Schema({
     instructions: {
         type: String,
     },
+    saveDate: {
+        type: Date,
+        default: Date.now,
+      },
+    user: { 
+        type: String,
+    },
 });
 
 console.log('Recipe Model Imported');
