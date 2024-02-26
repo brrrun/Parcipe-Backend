@@ -40,7 +40,7 @@ const recipeSchema = new Schema({
         type: Date,
         default: Date.now,
       },
-    user: { 
+    creator: { 
         type: String,
     },
 });

@@ -11,7 +11,8 @@ const User = require("../models/User.model");
 
 
         // Fetches ALL Recipes
-router.get("/recipes", (req, res)=>{
+router
+        .get("/recipes", (req, res)=>{
         Recipe
         .find({})
         .then((recipes) => res.json(recipes))
@@ -20,7 +21,8 @@ router.get("/recipes", (req, res)=>{
 
 
         // Fetches ID Specific Recipe
-router.get("/recipe/:_id", (req, res)=>{
+router
+        .get("/recipe/:_id", (req, res)=>{
         const {_id} = req.params;
         Recipe
         .findById(_id)
@@ -32,22 +34,25 @@ router.get("/recipe/:_id", (req, res)=>{
 
 
         // Creates a new Recipe
-router.post("/new", upload.array('images', 5), (req, res) => {
-        let createdRecipe;
-        const { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, saveDate, user, _id } = req.body;
-        const recipeData = { title, tags, time, servings, difficulty, ingredients, image, language, cuisine, instructions, saveDate, user };
-        Recipe
-        .create(recipeData)
-        .then((newRecipe) => {
-                createdRecipe = newRecipe;
-                return User.findByIdAndUpdate(_id, {$push: {createdRecipes: newRecipe._id}})
-        })  
-        .then(() => {
-                res.json(createdRecipe);
-        })
-        .catch((error) => res.status(500).json({ error: "Failed to create recipe", details: error }));
-});
+router
+        .post("/new", upload.array('images', 5), async (req, res) => {
+        try {
+        const { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, saveDate, creator } = req.body;
+        const recipeData = { title, tags, time, servings, difficulty, ingredients, image, language, cuisine, instructions, saveDate, creator };
+        
+        const newRecipe = await Recipe.create(recipeData);
+        if(!newRecipe) {
+            return res.status(500).json({ error: "Failed to create recipe" });
+        }
 
+        await User.findByIdAndUpdate(creator, { $push: { createdRecipes: newRecipe._id } });
+                res.json(newRecipe);
+                
+        } catch (error) {
+                res.status(500).json({ error: "Failed to create recipe", details: error });
+        }
+});
+              
 
 console.log('Recipe route hit');
 
