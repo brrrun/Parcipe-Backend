@@ -26,9 +26,19 @@ router
         const {_id} = req.params;
         Recipe
         .findById(_id)
-        .populate("user")
+        .populate("creator")
         .exec()
         .then((recipe) => res.json(recipe))
+        .catch((error) => res.json(error));
+})
+
+        // Fetches Authenticated User createdRecipes
+router
+        .get("/user/recipes/:_id", (req, res)=>{
+        const {_id} = req.params;
+        Recipe
+        .find({creator: _id})
+        .then((recipes) => res.json(recipes))
         .catch((error) => res.json(error));
 })
 
