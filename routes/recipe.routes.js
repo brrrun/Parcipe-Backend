@@ -3,6 +3,28 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require('multer');
 
+const passport = require('passport');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const jwtOptions = {
+        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+        secretOrKey: 'p@RCip3' // Replace with your actual secret key
+    };
+passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, done) => {
+try {
+        const user = await User.findById(jwtPayload.id);
+        if (user) {
+        return done(null, user);
+        } else {
+        return done(null, false);
+        }
+} catch (error) {
+        return done(error, false);
+}
+}));
+// Initialize Passport middleware
+router.use(passport.initialize());
+
 const storage = multer.memoryStorage(); // Store file data in memory as Buffer
 const upload = multer({ storage: storage });
 
@@ -21,26 +43,26 @@ router
 
 
         // Fetches ID Specific Recipe
-router
+router 
         .get("/recipe/:_id", (req, res)=>{
         const {_id} = req.params;
         Recipe
         .findById(_id)
         .populate("creator")
-        .exec()
+        .exec() 
         .then((recipe) => res.json(recipe))
         .catch((error) => res.json(error));
 })
 
         // Fetches Authenticated User createdRecipes
 router
-        .get("/user/recipes/:_id", (req, res)=>{
-        const {_id} = req.params;
+        .get("/user/recipes/:_id", (req, res) => {
+        const { _id } = req.params;
         Recipe
-        .find({creator: _id})
+        .find({ creator: _id }) 
         .then((recipes) => res.json(recipes))
-        .catch((error) => res.json(error));
-})
+        .catch(() => res.status(500).json({ error: 'Internal Server Error' }));
+});
 
 
         // Creates a new Recipe
