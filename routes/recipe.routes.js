@@ -3,6 +3,7 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require('multer');
 
+/*
 const passport = require('passport');
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
@@ -24,6 +25,7 @@ try {
 }));
 // Initialize Passport middleware
 router.use(passport.initialize());
+*/
 
 const storage = multer.memoryStorage(); // Store file data in memory as Buffer
 const upload = multer({ storage: storage });
@@ -69,7 +71,6 @@ router
         try {
         const { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, saveDate, creator } = req.body;
         const recipeData = { title, tags, time, servings, difficulty, ingredients, image, language, cuisine, instructions, saveDate, creator };
-        
         const newRecipe = await Recipe.create(recipeData);
         if(!newRecipe) {
             return res.status(500).json({ error: "Failed to create recipe" });
