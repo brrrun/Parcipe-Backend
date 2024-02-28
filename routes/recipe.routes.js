@@ -41,7 +41,6 @@ router
         .catch((error) => res.json(error));
 });
 
-
         // Fetches ID Specific Recipe
 router 
         .get("/recipe/:_id", (req, res)=>{
@@ -64,7 +63,6 @@ router
         .catch(() => res.status(500).json({ error: 'Internal Server Error' }));
 });
 
-
         // Creates a new Recipe
 router
         .post("/new", upload.array('images', 5), async (req, res) => {
@@ -84,7 +82,32 @@ router
                 res.status(500).json({ error: "Failed to create recipe", details: error });
         }
 });
+
+        // Deletes a Recipe
+router
+        .delete("/delete/recipe/:_id", (req, res) => {
+        const {_id} = req.params;
+        Recipe
+        .findByIdAndDelete({_id})
+        .then(() => res.json({message: "Recipe deleted successfully"}))
+        .catch((error) => res.json(error));
+});
               
+        // Edits a Recipe
+router
+        .put("/edit/:_id", (req, res) => {
+        const { _id } = req.params;
+        const { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, saveDate, creator } = req.body;
+        Recipe
+        .findByIdAndUpdate(_id, { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, saveDate, creator }, { new: true })
+        .then((updatedRecipe) => {
+                if(!updatedRecipe) {
+                    return res.status(404).json({ error: "Recipe not found" });
+                }
+                res.json(updatedRecipe)})
+        .catch((error) => res.status(500).json({ error: "Failed to edit recipe", details: error }));      
+});
+
 
 console.log('Recipe route hit');
 
