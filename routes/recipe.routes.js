@@ -96,7 +96,7 @@ router
               
         // Edits a Recipe
 router
-        .put("/edit/:_id", (req, res) => {
+        .put("/edit/recipe/:_id", (req, res) => {
         const { _id } = req.params;
         const { title, tags, time, servings, difficulty, ingredients, language, cuisine, image, instructions, saveDate, creator } = req.body;
         Recipe
