@@ -30,21 +30,14 @@ router
     });
 });
 
-
-
-
-
-
-
-
 // Edits the user Profile
 router
     .put("/profile/:_id/edit", (req, res) => {
         const { _id } = req.params;
-        const { username, email, password, createdRecipes } = req.body;
+        const { username, email, password, createdRecipes, shoppingList } = req.body;
     User
     .findByIdAndUpdate(_id,
-        { username, email, password, createdRecipes },
+        { username, email, password, createdRecipes, shoppingList },
         { new: true })
     .then((updatedUser) => {
         if(!updatedUser){

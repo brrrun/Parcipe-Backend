@@ -21,6 +21,17 @@ const userSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "Recipe",
     }],
+    shoppingList: [{
+      name: {
+        type: String,
+      },
+      amount: {
+        type: Number,
+      },
+      unit: {
+          type: String,
+      },
+    }],
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
