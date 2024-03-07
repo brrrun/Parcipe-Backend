@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require('multer');
+const cors = require("cors");
 
 const storage = multer.memoryStorage(); // Store file data in memory as Buffer
 const upload = multer({ storage: storage });
@@ -9,6 +10,7 @@ const upload = multer({ storage: storage });
 const Recipe = require("../models/Recipe.model");
 const User = require("../models/User.model");
 
+app.use(cors());
 
         // Fetches ALL Recipes
 router
