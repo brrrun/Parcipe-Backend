@@ -3,30 +3,6 @@ const router = express.Router();
 const mongoose = require("mongoose");
 const multer = require('multer');
 
-/*
-const passport = require('passport');
-const JwtStrategy = require('passport-jwt').Strategy;
-const ExtractJwt = require('passport-jwt').ExtractJwt;
-const jwtOptions = {
-        jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: 'p@RCip3' // Replace with your actual secret key
-    };
-passport.use(new JwtStrategy(jwtOptions, async (jwtPayload, done) => {
-try {
-        const user = await User.findById(jwtPayload.id);
-        if (user) {
-        return done(null, user);
-        } else {
-        return done(null, false);
-        }
-} catch (error) {
-        return done(error, false);
-}
-}));
-// Initialize Passport middleware
-router.use(passport.initialize());
-*/
-
 const storage = multer.memoryStorage(); // Store file data in memory as Buffer
 const upload = multer({ storage: storage });
 
