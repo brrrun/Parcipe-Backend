@@ -10,12 +10,23 @@ require("./db");
 const express = require("express");
 const cors = require("cors");
 
+
+const server = jsonServer.create();
+const middlewares = jsonServer.defaults();
+
 const app = express();
 const allowedOrigins = ['https://parcipe.netlify.app']; 
 
 const corsOptions = {
   origin: allowedOrigins
 };
+
+server.use(middlewares);
+server.use((req, res, next) => {
+    // Middleware to disable CORS
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+  });
 
 app.use(cors(corsOptions));
 
