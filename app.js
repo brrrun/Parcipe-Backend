@@ -11,7 +11,13 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-app.use(cors()); // <<
+const allowedOrigins = ['https://parcipe.netlify.app']; // Replace with your frontend URL
+
+const corsOptions = {
+  origin: allowedOrigins
+};
+
+app.use(cors(corsOptions));
 
 // Increase the maximum size of the request body to 10MB
 const bodyParser = require('body-parser');
