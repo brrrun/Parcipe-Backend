@@ -1,3 +1,4 @@
+const cors = require("cors");
 // ℹ️ Gets access to environment variables/settings
 // https://www.npmjs.com/package/dotenv
 require("dotenv").config();
@@ -8,16 +9,11 @@ require("./db");
 // Handles http requests (express is node js framework)
 // >> ADDED CORS CONFIG
 const express = require("express");
-const cors = require("cors");
+
 
 const app = express();
-const allowedOrigins = ['https://parcipe.netlify.app', 'http://localhost:5174', 'http://localhost:5005']; 
 
-const corsOptions = {
-  origin: allowedOrigins
-};
-
-app.use(cors(corsOptions));
+app.use(cors());
 
 // Increase the maximum size of the request body to 10MB
 const bodyParser = require('body-parser');
