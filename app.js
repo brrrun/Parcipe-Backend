@@ -1,4 +1,3 @@
-const cors = require("cors");
 // ℹ️ Gets access to environment variables/settings
 // https://www.npmjs.com/package/dotenv
 require("dotenv").config();
@@ -9,7 +8,7 @@ require("./db");
 // Handles http requests (express is node js framework)
 // >> ADDED CORS CONFIG
 const express = require("express");
-
+const cors = require("cors");
 
 const app = express();
 
