@@ -11,7 +11,7 @@ const express = require("express");
 const cors = require("cors");
 
 const app = express();
-const allowedOrigins = ['https://parcipe.netlify.app']; // Replace with your frontend URL
+const allowedOrigins = ['https://parcipe.netlify.app']; 
 
 const corsOptions = {
   origin: allowedOrigins
