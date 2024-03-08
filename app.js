@@ -8,19 +8,20 @@ require("./db");
 // Handles http requests (express is node js framework)
 // >> ADDED CORS CONFIG
 const express = require("express");
+const cors = require("cors");
+
 const app = express();
 
-const cors = require("cors");
 const allowedOrigins = ['*', 'https://parcipe.netlify.app'];
 const corsOptions = {
   allowedOrigins
 };
 app.use(cors());
-app.use((req, res, next) => {
+/*app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
   next();
-})
+})*/
 // Increase the maximum size of the request body to 10MB
 const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '10mb' }));
