@@ -10,7 +10,7 @@ require("./db");
 const express = require("express");
 const app = express();
 
-//const cors = require("cors");
+const cors = require("cors");
 const allowedOrigins = ['*', 'https://parcipe.netlify.app'];
 const corsOptions = {
   allowedOrigins
