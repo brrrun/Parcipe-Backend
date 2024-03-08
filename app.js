@@ -5,14 +5,18 @@ require("dotenv").config();
 // ℹ️ Connects to the database
 require("./db");
 
-const cors = require("cors");
-
 // Handles http requests (express is node js framework)
 // >> ADDED CORS CONFIG
 const express = require("express");
-
 const app = express();
-app.use(cors());
+
+const cors = require("cors");
+const allowedOrigins = {"Access-Control-Allow-Origin": "*"};
+const corsOptions = {
+  origin: allowedOrigins
+};
+app.use(cors(corsOptions));
+
 
 // Increase the maximum size of the request body to 10MB
 const bodyParser = require('body-parser');
