@@ -11,7 +11,7 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
-const allowedOrigins = [{"Access-Control-Allow-Origin":"*", origin:"https://parcipe.netlify.app"}];
+const allowedOrigins = [{"Access-Control-Allow-Origin":"*", "Access-Control-Allow-Origin":"https://parcipe.netlify.app"}];
 const corsOptions = {
   origin: allowedOrigins
 };
