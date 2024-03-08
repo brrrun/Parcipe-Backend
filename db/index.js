@@ -2,7 +2,6 @@
 // https://www.npmjs.com/package/mongoose
 const mongoose = require("mongoose");
 
-
 // Requires the MongoDB URL from .env file
 require('dotenv').config();
 
