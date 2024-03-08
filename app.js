@@ -15,7 +15,7 @@ const allowedOrigins = ['*', 'https://parcipe.netlify.app'];
 const corsOptions = {
   allowedOrigins
 };
-app.use(cors());
+//app.use(cors());
 app.use((req, res, next) => {
   // Middleware to disable CORS
   res.header("Access-Control-Allow-Origin", "*");

@@ -29,9 +29,8 @@ module.exports = (app) => {
     cors({
       origin: [FRONTEND_URL],
     })
-    
   );
-  console.log("app.use", FRONTEND_URL)
+
   // In development environment the app logs
   app.use(logger("dev"));
 

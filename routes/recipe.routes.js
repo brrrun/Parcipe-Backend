@@ -86,7 +86,4 @@ router
 });
 
 
-console.log('Recipe route hit');
-
-
 module.exports = router;
