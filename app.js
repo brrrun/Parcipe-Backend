@@ -15,8 +15,12 @@ const allowedOrigins = ['*', 'https://parcipe.netlify.app'];
 const corsOptions = {
   allowedOrigins
 };
-app.use(cors(corsOptions));
-console.log("corsOptions!!!", corsOptions)
+app.use(cors());
+app.use((req, res, next) => {
+  // Middleware to disable CORS
+  res.header("Access-Control-Allow-Origin", "*");
+  next();
+});
 
 // Increase the maximum size of the request body to 10MB
 const bodyParser = require('body-parser');
