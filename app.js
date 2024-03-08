@@ -11,12 +11,13 @@ const express = require("express");
 const app = express();
 
 const cors = require("cors");
-const allowedOrigins = [{"Access-Control-Allow-Origin":"*", "Access-Control-Allow-Origin":"https://parcipe.netlify.app"}];
+const allowedOrigins = ['*', 'https://parcipe.netlify.app'];
 const corsOptions = {
-  origin: allowedOrigins
+  allowedOrigins
 };
 app.use(cors(corsOptions));
 
+console.log("corsOptions!!!", corsOptions)
 
 // Increase the maximum size of the request body to 10MB
 const bodyParser = require('body-parser');
