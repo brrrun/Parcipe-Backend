@@ -15,12 +15,12 @@ const allowedOrigins = ['*', 'https://parcipe.netlify.app'];
 const corsOptions = {
   allowedOrigins
 };
-/*app.use(cors());
+app.use(cors());
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT");
   next();
-})*/
+})
 // Increase the maximum size of the request body to 10MB
 const bodyParser = require('body-parser');
 app.use(bodyParser.json({ limit: '10mb' }));
