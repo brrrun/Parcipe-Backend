@@ -45,9 +45,6 @@ const recipeSchema = new Schema({
     },
 });
 
-console.log('Recipe Model Imported');
-
-
 const Recipe = model("Recipe", recipeSchema);
 
 module.exports = Recipe;
