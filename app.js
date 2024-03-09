@@ -8,9 +8,9 @@ require("./db");
 // Handles http requests (express is node js framework)
 // >> ADDED CORS CONFIG
 const express = require("express");
-const cors = require("cors");
-
 const app = express();
+
+const cors = require("cors");
 
 const allowedOrigins = ['*', 'https://parcipe.netlify.app'];
 const corsOptions = {

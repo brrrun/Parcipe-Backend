@@ -7,8 +7,6 @@ const storage = multer.memoryStorage(); // Store file data in memory as Buffer
 const upload = multer({ storage: storage });
 
 const User = require("../models/User.model");
-const Recipe = require("../models/Recipe.model");
-
 
 // Fetches the user Profile
 router
